@@ -15,7 +15,7 @@ In order to use the Grade API, you will need to sign up a new username, and obta
 To sign up a username, we are going to make a simple request to the Grade API.
 
 1. Go to https://hoppscotch.io. This is a tool like Postman, which can be used to quickly interact with APIs.
-2. Beside the word GET, replace `https://echo.hoppscotch.io/` with `http://vm003.teach.cs.toronto.edu:20112/signUp`.
+2. Beside the word GET, replace `https://echo.hoppscotch.io/` with `http://vm003.teach.cs.toronto.edu:20112/signUp`. NOTE: The DataBase will be reset before Thursday's lab, be aware if you want to try the API in advance!!
 
 Next, we need to specify the username which we want to use. To do this, we add a parameter.
 
@@ -126,8 +126,15 @@ but you can still write the code for task 4 so that it is ready to run once task
 
 ## Task 3: Coding the Get Average Grade feature
 
-While this program has some useful core functionality which is provided by the Grade API,
-there are certain things which the Grade API can't currently do for us.
+### Task 3.1: Understand the idea of mocking API calls.
+
+You can run the provided tests to check if your "Task 3a" `GetAverageGradeUseCase` logic is implemented correctly, _before_ you finish implementing the "Task 3b" `MongoGradeDataBase.getMyTeam` method in Task 3.
+These tests make use of the technique of mocking (or stubbing), where instead of calling the actual API we use fake data instead.
+This is possible because of how the program is designed, with the `GradeDataBase` interface allowing us to replace any variable with reference type `GradeDataBase` with our own dummy implementation.
+
+** Note that it's recommended to design test cases before you actually write the code. You may wonder `gradeDataBase.getMyTeam();` is not implemented yet and we have to wait for it. But actually, if we assume `gradeDataBase.getMyTeam();` is correct, then we can focus on checking the algorithm of calculating the average grade, which is the main part of this task. And this is the idea of 'mocking API responses' in the test cases. For this lab activity, we have written the testcases for you, one using the Mockito library to mock APIs (`GetAverageGradeUseCaseMockito`) while the other one doesn't use any other current library (`GetAverageGradeUseCaseTest`). You are encouraged to take a look at how these testcase were written - you may want to write test cases for your own project before the API part is implemented!
+
+### Task 3.2: Implement the Get Average Grade Usecase before the API caller
 
 1. Go to `My Team` menu, enter the course name as `207` and click on `Get average grade`. You will notice that the functionality 
 for `Get Average Grade` isn't implemented yet — it will just display `Average Grade: 0.0`. 
@@ -137,10 +144,6 @@ for `Get Average Grade` isn't implemented yet — it will just display `Average 
 4. You will need to finish implementing the logic of calculating the average grade (Task 3a in the code) in the `GetAverageGradeUseCase` class.
 The logic is partly implemented, but what is written depends on the `getMyTeam` method (Task 3b in the code), which needs to be implemented.
 Follow the hints provided in this method to complete its implementation. Note the API response will be in `json` format which you learned how to parse last lab.
-
-You can run the provided tests to check if your "Task 3a" `GetAverageGradeUseCase` logic is implemented correctly, _before_ you finish implementing the "Task 3b" `MongoGradeDataBase.getMyTeam` method in Task 3.
-These tests make use of the technique of mocking (or stubbing), where instead of calling the actual API we use fake data instead.
-This is possible because of how the program is designed, with the `GradeDataBase` interface allowing us to replace any variable with reference type `GradeDataBase` with our own dummy implementation.
 
 ## Task 4: Coding the Get Top Grade feature
 
